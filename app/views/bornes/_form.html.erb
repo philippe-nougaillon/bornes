@@ -1,0 +1,107 @@
+<%= form_with(model: borne, local: true) do |form| %>
+  <% if borne.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(borne.errors.count, "error") %> prohibited this borne from being saved:</h2>
+
+      <ul>
+      <% borne.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :n_amenageur %>
+    <%= form.text_field :n_amenageur %>
+  </div>
+
+  <div class="field">
+    <%= form.label :n_operateur %>
+    <%= form.text_field :n_operateur %>
+  </div>
+
+  <div class="field">
+    <%= form.label :n_enseigne %>
+    <%= form.text_field :n_enseigne %>
+  </div>
+
+  <div class="field">
+    <%= form.label :id_station %>
+    <%= form.text_field :id_station %>
+  </div>
+
+  <div class="field">
+    <%= form.label :n_station %>
+    <%= form.text_field :n_station %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ad_station %>
+    <%= form.text_field :ad_station %>
+  </div>
+
+  <div class="field">
+    <%= form.label :code_insee %>
+    <%= form.text_field :code_insee %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Xlongitude %>
+    <%= form.text_field :Xlongitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ylatitude %>
+    <%= form.text_field :Ylatitude %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nbre_pdc %>
+    <%= form.number_field :nbre_pdc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :id_pdc %>
+    <%= form.text_field :id_pdc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :puiss_max %>
+    <%= form.text_field :puiss_max %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type_prise %>
+    <%= form.text_field :type_prise %>
+  </div>
+
+  <div class="field">
+    <%= form.label :acces_recharge %>
+    <%= form.text_field :acces_recharge %>
+  </div>
+
+  <div class="field">
+    <%= form.label :accessibilité %>
+    <%= form.text_field :accessibilité %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observations %>
+    <%= form.text_field :observations %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_maj %>
+    <%= form.text_field :date_maj %>
+  </div>
+
+  <div class="field">
+    <%= form.label :source %>
+    <%= form.text_field :source %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

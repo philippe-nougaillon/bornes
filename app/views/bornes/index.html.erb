@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bornes de Recharge pour Véhicules Électriques</h1>
+
+<%= form_tag bornes_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Voir les bornes à proximité", :name => nil %>
+  </p>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Enseigne</th>
+      <th>Id station</th>
+      <th>Nom station</th>
+      <th>Adresse</th>
+      <th>Code insee</th>
+      <th>Nbre pdc</th>
+      <th>Puiss max</th>
+      <th>Type prise</th>
+      <th />
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bornes.each do |borne| %>
+      <tr>
+        <td><%= borne.n_enseigne %></td>
+        <td><%= borne.id_station %></td>
+        <td><%= borne.n_station %></td>
+        <td><%= borne.ad_station %></td>
+        <td><%= borne.code_insee %></td>
+        <td><%= borne.nbre_pdc %></td>
+        <td><%= borne.puiss_max %></td>
+        <td><%= borne.type_prise %></td>
+        <td><%= link_to 'Détails', borne %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @bornes, renderer: BootstrapPagination::Rails %>

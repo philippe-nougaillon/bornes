@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  n_amenageur: MyString
+  n_operateur: MyString
+  n_enseigne: MyString
+  id_station: MyString
+  n_station: MyString
+  ad_station: MyString
+  code_insee: MyString
+  Xlongitude: 1.5
+  Ylatitude: 1.5
+  nbre_pdc: 1
+  id_pdc: MyString
+  puiss_max: MyString
+  type_prise: MyString
+  acces_recharge: MyString
+  accessibilité: MyString
+  observations: MyString
+  date_maj: MyString
+  source: MyString
+
+two:
+  n_amenageur: MyString
+  n_operateur: MyString
+  n_enseigne: MyString
+  id_station: MyString
+  n_station: MyString
+  ad_station: MyString
+  code_insee: MyString
+  Xlongitude: 1.5
+  Ylatitude: 1.5
+  nbre_pdc: 1
+  id_pdc: MyString
+  puiss_max: MyString
+  type_prise: MyString
+  acces_recharge: MyString
+  accessibilité: MyString
+  observations: MyString
+  date_maj: MyString
+  source: MyString

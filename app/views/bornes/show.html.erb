@@ -1,0 +1,165 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <%= @borne.ad_station %>
+</h1>
+
+<div class="row">
+  <div id='map' style='width: 100%; height: 400px;'></div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <p>
+      <strong>Amenageur:</strong>
+      <%= @borne.n_amenageur %>
+    </p>
+
+    <p>
+      <strong>Opérateur:</strong>
+      <%= @borne.n_operateur %>
+    </p>
+
+    <p>
+      <strong>Enseigne:</strong>
+      <%= @borne.n_enseigne %>
+    </p>
+
+    <p>
+      <strong>Id station:</strong>
+      <%= @borne.id_station %>
+    </p>
+
+    <p>
+      <strong>Nom station:</strong>
+      <%= @borne.n_station %>
+    </p>
+
+    <p>
+      <strong>Code insee:</strong>
+      <%= @borne.code_insee %>
+    </p>
+
+    <p>
+      <strong>Nbre pdc:</strong>
+      <%= @borne.nbre_pdc %>
+    </p>
+
+    <p>
+      <strong>Puiss max:</strong>
+      <%= @borne.puiss_max %>
+    </p>
+
+    <p>
+      <strong>Type prise:</strong>
+      <%= @borne.type_prise %>
+    </p>
+  </div>
+  <div class="col">
+    <p>
+      <strong>Acces recharge:</strong>
+      <%= @borne.acces_recharge %>
+    </p>
+
+    <p>
+      <strong>Accessibilité:</strong>
+      <%= @borne.accessibilité %>
+    </p>
+
+    <p>
+      <strong>Observations:</strong>
+      <%= @borne.observations %>
+    </p>
+
+    <p>
+      <strong>Date maj:</strong>
+      <%= @borne.date_maj %>
+    </p>
+
+    <p>
+      <strong>Source:</strong>
+      <%= @borne.source %>
+    </p>
+  </div>
+  <div class="col">
+    <h4>Bornes dans les environs (20 kms)</h4>
+    <ul>
+    <% for borne in @bornes %>
+      <li><%= link_to borne.ad_station, borne %> (<%= borne.distance.round(2) %> kms)</li>
+    <% end %>
+    </ul>
+  </div>
+</div>
+
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoicGhpbG5vdWciLCJhIjoiY2pvNXRyczhjMDFkajNxcGVmNHZtcHZ4OSJ9.vcFMjboSUDUUg--tDsgapg';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: <%= [@borne.longitude, @borne.latitude] %>,
+    zoom: 10
+  });
+
+  // create a HTML element for the main plug
+  var el = document.createElement('div');
+  el.className = 'marker_spot';
+
+  new mapboxgl.Marker(el)
+  .setLngLat(<%= [@borne.longitude, @borne.latitude] %>)
+  .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+  .setHTML("<h3><%= @borne.n_station %></h3><p>Type: <%= @borne.type_prise %><br>Puissance: <%= @borne.puiss_max %> kW/h</p>"))
+  .addTo(map);
+
+  <% @bornes.each do | marker | %>
+
+    // create a HTML element for each plug nearby
+    var el = document.createElement('div');
+    el.className = 'marker';
+
+    // make a marker for each feature and add to the map
+    new mapboxgl.Marker(el)
+    .setLngLat(<%= [marker.longitude, marker.latitude] %>)
+    .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+      .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%=marker.id %>'>Détails</a></p>"))
+    .addTo(map);
+  <% end %>
+
+</script>
+
+<style type="text/css">
+  
+  .marker_spot {
+    background-image: url('/mapbox-spot-icon.png');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .marker {
+    background-image: url('/mapbox-icon.png');
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .mapboxgl-popup {
+    max-width: 200px;
+  }
+
+  .mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  #map {
+    margin: 15px;
+  }
+</style>
+
+
+<%= link_to 'Retour', bornes_path %>
