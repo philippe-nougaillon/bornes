@@ -33,6 +33,6 @@ class ImportBorneCSV
   column :date_maj	
   column :source
 
-  identifier :id_station
+  #identifier :id_station
 
 end

@@ -5,12 +5,15 @@ class BornesController < ApplicationController
   # GET /bornes.json
   def index
     if params[:search].present?
-      @bornes = Borne.near(params[:search], 20)
+      @bornes = Borne.near("#{params[:search]}, FR", 20)
     else
       @bornes = Borne.all
     end
 
-    @bornes = @bornes.page(params[:page])
+    respond_to do |format|
+      format.html { @bornes = @bornes.page(params[:page]) }
+      format.json 
+    end
   end
 
   # GET /bornes/1

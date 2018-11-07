@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>
-  <%= @borne.ad_station %>
+  <%= @borne.ad_station %> (<%= @borne.type_prise %> <%= @borne.puiss_max %>)
 </h1>
 
 <div class="row">
@@ -10,6 +10,11 @@
 
 <div class="row">
   <div class="col">
+    <p>
+      <strong>Nom station:</strong>
+      <%= @borne.n_station %>
+    </p>
+
     <p>
       <strong>Amenageur:</strong>
       <%= @borne.n_amenageur %>
@@ -31,33 +36,26 @@
     </p>
 
     <p>
-      <strong>Nom station:</strong>
-      <%= @borne.n_station %>
-    </p>
-
-    <p>
       <strong>Code insee:</strong>
       <%= @borne.code_insee %>
     </p>
-
+    <%= link_to 'Retour', bornes_path, class:"btn btn-primary btn-sm" %>
+  </div>
+  <div class="col">
+    <p>
+      <strong>Type:</strong>
+      <%= @borne.type_prise %>
+    </p>
+    <p>
+      <strong>Puissance</strong>
+      <%= @borne.puiss_max %>
+    </p>
     <p>
       <strong>Nbre pdc:</strong>
       <%= @borne.nbre_pdc %>
     </p>
-
     <p>
-      <strong>Puiss max:</strong>
-      <%= @borne.puiss_max %>
-    </p>
-
-    <p>
-      <strong>Type prise:</strong>
-      <%= @borne.type_prise %>
-    </p>
-  </div>
-  <div class="col">
-    <p>
-      <strong>Acces recharge:</strong>
+      <strong>Accès recharge:</strong>
       <%= @borne.acces_recharge %>
     </p>
 
@@ -91,7 +89,6 @@
   </div>
 </div>
 
-
 <script>
   mapboxgl.accessToken = 'pk.eyJ1IjoicGhpbG5vdWciLCJhIjoiY2pvNXRyczhjMDFkajNxcGVmNHZtcHZ4OSJ9.vcFMjboSUDUUg--tDsgapg';
   var map = new mapboxgl.Map({
@@ -124,42 +121,4 @@
       .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%=marker.id %>'>Détails</a></p>"))
     .addTo(map);
   <% end %>
-
 </script>
-
-<style type="text/css">
-  
-  .marker_spot {
-    background-image: url('/mapbox-spot-icon.png');
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .marker {
-    background-image: url('/mapbox-icon.png');
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .mapboxgl-popup {
-    max-width: 200px;
-  }
-
-  .mapboxgl-popup-content {
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
-  }
-
-  #map {
-    margin: 15px;
-  }
-</style>
-
-
-<%= link_to 'Retour', bornes_path %>

@@ -4,41 +4,49 @@
 
 <%= form_tag bornes_path, :method => :get do %>
   <p>
+    Ville: 
     <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Voir les bornes à proximité", :name => nil %>
+    <%= submit_tag "Voir les bornes à proximité", :name => nil, class:"btn btn-success btn-sm" %>
   </p>
 <% end %>
 
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>Nom station</th>
       <th>Enseigne</th>
       <th>Id station</th>
-      <th>Nom station</th>
       <th>Adresse</th>
+      <th>Distance</th>
       <th>Code insee</th>
       <th>Nbre pdc</th>
       <th>Puiss max</th>
       <th>Type prise</th>
-      <th />
     </tr>
   </thead>
 
   <tbody>
     <% @bornes.each do |borne| %>
       <tr>
+        <td><%= link_to borne.n_station, borne %></td>
         <td><%= borne.n_enseigne %></td>
         <td><%= borne.id_station %></td>
-        <td><%= borne.n_station %></td>
         <td><%= borne.ad_station %></td>
+        <td>
+            <% if dist = borne.try(:distance) %>
+              <%= dist.round(0) %> km
+            <% end %> 
+        </td>
         <td><%= borne.code_insee %></td>
         <td><%= borne.nbre_pdc %></td>
         <td><%= borne.puiss_max %></td>
         <td><%= borne.type_prise %></td>
-        <td><%= link_to 'Détails', borne %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<div class="page_info">
+  <%= page_entries_info @posts %>
+</div>
 <%= will_paginate @bornes, renderer: BootstrapPagination::Rails %>
