@@ -67,3 +67,5 @@ gem 'csv-importer'
 gem 'geocoder'
 
 gem 'will_paginate-bootstrap'
+
+gem 'rack-cors', require: 'rack/cors'

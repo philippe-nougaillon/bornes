@@ -5,14 +5,21 @@ class BornesController < ApplicationController
   # GET /bornes.json
   def index
     if params[:search].present?
-      @bornes = Borne.near("#{params[:search]}, FR", 20)
+      # rechercher les bornes à proximité de la ville en paramètre
+      @bornes = Borne.near("#{params[:search]}, FR", 10)
     else
-      @bornes = Borne.all
+      if params[:kms].present?
+        # rechercher à partir de l'adresse IP
+        ip = (request.ip != '127.0.0.1' ? request.ip : "195.68.72.6")
+        @bornes = Borne.near(ip, params[:kms].to_i)
+      else
+        @bornes = Borne.all
+      end
     end
 
     respond_to do |format|
       format.html { @bornes = @bornes.page(params[:page]) }
-      format.json 
+      format.json
     end
   end
 
