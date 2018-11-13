@@ -3,11 +3,21 @@
 <h1>Bornes de Recharge pour Véhicules Électriques</h1>
 
 <%= form_tag bornes_path, :method => :get do %>
-  <p>
-    Ville: 
+  <div class="form-group">
+    
+    <label>Nom/Adresse/Enseigne:</label> 
     <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Voir les bornes à proximité", :name => nil, class:"btn btn-success btn-sm" %>
-  </p>
+
+    <label class="radio-inline">Puissance mini (kWh):</label>
+    <label class="radio-inline"><%= radio_button_tag :puissance,  3, params[:puissance] ==  '3' %>3</label> 
+    <label class="radio-inline"><%= radio_button_tag :puissance,  7, params[:puissance] ==  '7' %>7</label>
+    <label class="radio-inline"><%= radio_button_tag :puissance, 11, params[:puissance] == '11' %>11</label>
+    <label class="radio-inline"><%= radio_button_tag :puissance, 22, params[:puissance] == '22' %>22</label>
+    <label class="radio-inline"><%= radio_button_tag :puissance, 43, params[:puissance] == '43' %>43</label>
+    <label class="radio-inline"><%= radio_button_tag :puissance, 50, params[:puissance] == '50' %>50</label>
+    
+    <%= submit_tag "Rechercher", :name => nil, class:"btn btn-success btn-sm" %>
+  </div>
 <% end %>
 
 <table class="table table-hover">

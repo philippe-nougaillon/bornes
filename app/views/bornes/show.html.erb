@@ -39,7 +39,16 @@
       <strong>Code insee:</strong>
       <%= @borne.code_insee %>
     </p>
-    <%= link_to 'Retour', bornes_path, class:"btn btn-primary btn-sm" %>
+
+    <p>
+      <strong>Date maj:</strong>
+      <%= @borne.date_maj %>
+    </p>
+
+    <p>
+      <strong>Source:</strong>
+      <%= @borne.source %>
+    </p>
   </div>
   <div class="col">
     <p>
@@ -69,15 +78,6 @@
       <%= @borne.observations %>
     </p>
 
-    <p>
-      <strong>Date maj:</strong>
-      <%= @borne.date_maj %>
-    </p>
-
-    <p>
-      <strong>Source:</strong>
-      <%= @borne.source %>
-    </p>
   </div>
   <div class="col">
     <h4>Bornes dans les environs (20 kms)</h4>
