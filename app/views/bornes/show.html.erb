@@ -1,8 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>
-  <%= @borne.ad_station %> (<%= @borne.type_prise %> <%= @borne.puiss_max %>)
-</h1>
+<h2><%= @borne.n_station %></h2>
 
 <div class="row">
   <div id='map' style='width: 100%; height: 400px;'></div>
@@ -11,8 +9,8 @@
 <div class="row">
   <div class="col-sm-4">
     <p>
-      <strong>Nom station:</strong>
-      <%= @borne.n_station %>
+      <strong>Adresse station:</strong>
+      <%= @borne.ad_station %>
     </p>
 
     <p>
@@ -44,11 +42,6 @@
       <strong>Date maj:</strong>
       <%= @borne.date_maj %>
     </p>
-
-    <p>
-      <strong>Source:</strong>
-      <%= @borne.source %>
-    </p>
   </div>
   <div class="col-sm-4">
     <p>
@@ -57,7 +50,7 @@
     </p>
     <p>
       <strong>Puissance</strong>
-      <%= @borne.puiss_max %>
+      <%= @borne.puiss_max %> kWh
     </p>
     <p>
       <strong>Nbre pdc:</strong>
@@ -80,7 +73,7 @@
 
   </div>
   <div class="col-sm-4">
-    <h4>Bornes dans les environs (20 kms)</h4>
+    <h3>Bornes dans les environs (20 kms)</h3>
     <ul>
     <% for borne in @bornes %>
       <li><%= link_to borne.ad_station, borne %> (<%= borne.distance.round(2) %> kms)</li>
@@ -98,15 +91,6 @@
     zoom: 10
   });
 
-  // create a HTML element for the main plug
-  var el = document.createElement('div');
-  el.className = 'marker_spot';
-
-  new mapboxgl.Marker(el)
-  .setLngLat(<%= [@borne.longitude, @borne.latitude] %>)
-  .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-  .setHTML("<h3><%= @borne.n_station %></h3><p>Type: <%= @borne.type_prise %><br>Puissance: <%= @borne.puiss_max %> kW/h</p>"))
-  .addTo(map);
 
   <% @bornes.each do | marker | %>
 
@@ -120,5 +104,17 @@
     .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
       .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%=marker.id %>'>Détails</a></p>"))
     .addTo(map);
-  <% end %>
+
+    <% end %>
+
+  // create a HTML element for the main plug
+  var el = document.createElement('div');
+  el.className = 'marker_spot';
+
+  new mapboxgl.Marker(el)
+  .setLngLat(<%= [@borne.longitude, @borne.latitude] %>)
+  .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+  .setHTML("<h3><%= @borne.n_station %></h3><p>Type: <%= @borne.type_prise %><br>Puissance: <%= @borne.puiss_max %> kW/h</p>"))
+  .addTo(map);
+
 </script>
