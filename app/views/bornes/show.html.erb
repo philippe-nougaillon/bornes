@@ -102,10 +102,10 @@
     new mapboxgl.Marker(el)
     .setLngLat(<%= [marker.longitude, marker.latitude] %>)
     .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-      .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%=marker.id %>'>Détails</a></p>"))
+    .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%=marker.id %>'>Détails</a></p>"))
     .addTo(map);
 
-    <% end %>
+  <% end %>
 
   // create a HTML element for the main plug
   var el = document.createElement('div');

@@ -5,17 +5,16 @@
 .marker_spot {
     background-image: url('/custom_marker.png');
     background-size: cover;
-    background-color: black;
-    width: 35px;
-    height: 35px;
+    width:  35px;
+    height: 45px;
     cursor: pointer;
 }
 
 .marker {
     background-image: url('/mapbox-icon.png');
     background-size: cover;
-    width: 25px;
-    height: 25px;
+    width:  30px;
+    height: 30px;
     cursor: pointer;
 }
 
