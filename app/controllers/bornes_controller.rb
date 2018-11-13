@@ -7,7 +7,7 @@ class BornesController < ApplicationController
     @bornes = Borne.all
 
     if params[:puissance].present?
-      @bornes = @bornes.where("cast(puiss_max as int) <= ?", params[:puissance].to_i)
+      @bornes = @bornes.where("cast(puiss_max as int) >= ?", params[:puissance].to_i)
     end
 
     if params[:search].present?
