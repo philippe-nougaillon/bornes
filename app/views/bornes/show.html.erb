@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-  <div class="col">
+  <div class="col-sm-4">
     <p>
       <strong>Nom station:</strong>
       <%= @borne.n_station %>
@@ -50,7 +50,7 @@
       <%= @borne.source %>
     </p>
   </div>
-  <div class="col">
+  <div class="col-sm-4">
     <p>
       <strong>Type:</strong>
       <%= @borne.type_prise %>
@@ -79,7 +79,7 @@
     </p>
 
   </div>
-  <div class="col">
+  <div class="col-sm-4">
     <h4>Bornes dans les environs (20 kms)</h4>
     <ul>
     <% for borne in @bornes %>
