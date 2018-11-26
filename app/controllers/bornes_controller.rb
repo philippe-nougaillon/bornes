@@ -15,7 +15,7 @@ class BornesController < ApplicationController
       # rechercher les bornes à proximité de la ville où a été trouvée l'IP      
       # ip = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
       #@bornes = @bornes.near(ip, params[:kms].to_i)
-      @bornes = @bornes.near(params[:location], params[:kms].to_i)
+      @bornes = @bornes.near("#{params[:location]}, FR", params[:kms].to_i)
     end
 
     if params[:puissance].present?
