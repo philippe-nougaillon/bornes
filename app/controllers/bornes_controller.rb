@@ -6,19 +6,20 @@ class BornesController < ApplicationController
   def index
     @bornes = Borne.all
 
-    if params[:puissance].present?
-      @bornes = @bornes.where("cast(puiss_max as int) >= ?", params[:puissance].to_i)
-    end
-
     if params[:search].present?
       @bornes = @bornes.where("n_station like ? OR ad_station like ? OR n_enseigne like ?", 
                             "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
 
-    if params[:kms].present?
+    if params[:kms].present? && params[:location].present?
       # rechercher les bornes à proximité de la ville où a été trouvée l'IP      
-      ip = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
-      @bornes = @bornes.near(ip, params[:kms].to_i)
+      # ip = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
+      #@bornes = @bornes.near(ip, params[:kms].to_i)
+      @bornes = @bornes.near(params[:location], params[:kms].to_i)
+    end
+
+    if params[:puissance].present?
+      @bornes = @bornes.where("cast(puiss_max as int) >= ?", params[:puissance].to_i)
     end
     
     respond_to do |format|
