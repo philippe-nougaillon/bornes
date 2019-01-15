@@ -1,13 +1,14 @@
 class Borne < ApplicationRecord
 	reverse_geocoded_by :latitude, :longitude
 
-  self.per_page = 15
+  self.per_page = 10
 end
 
 # Source : https://www.data.gouv.fr/fr/datasets/fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques/
-# import = Borne::ImportBorneCSV.new(path: '/home/philnoug/Téléchargements/bornes-irve-20181022.csv')
-# import.run!
-# import.report.status
+# rails console
+# > import = Borne::ImportBorneCSV.new(path: '/home/philnoug/Téléchargements/bornes-irve.csv')
+# > import.run!
+# > import.report.status
 
 class ImportBorneCSV
   include CSVImporter

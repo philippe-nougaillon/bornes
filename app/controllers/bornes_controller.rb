@@ -11,15 +11,18 @@ class BornesController < ApplicationController
                             "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
 
-    if params[:kms].present? && params[:location].present?
+    if params[:nearby].present?
+      location = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
+      @bornes = @bornes.near(location, 20)
+    end
 
+    if params[:kms].present? && params[:location].present?
       # rechercher les bornes à proximité de la ville(location) ou par geocodage de l'IP      
       unless params[:location].nil?
         location = params[:location] + ", FR"
       else
         location = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
       end
-
       @bornes = @bornes.near(location, params[:kms].to_i)
     end
 

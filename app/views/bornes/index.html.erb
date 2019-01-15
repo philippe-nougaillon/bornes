@@ -1,24 +1,47 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Bornes de Recharge pour Véhicules Électriques</h1>
+<h1><%= link_to "Bornes de Recharge pour Véhicules Électriques" %></h1>
+<br>
 
-<%= form_tag bornes_path, :method => :get do %>
-  <div class="form-group">
-    
-    <label>Nom/Adresse/Enseigne:</label> 
-    <%= text_field_tag :search, params[:search] %>
+<%= form_tag bornes_path, :method => :get, class: "form-inline" do %>
 
-    <label class="radio-inline">Puissance mini (kWh):</label>
-    <label class="radio-inline"><%= radio_button_tag :puissance,  3, params[:puissance] ==  '3' %>3</label> 
-    <label class="radio-inline"><%= radio_button_tag :puissance,  7, params[:puissance] ==  '7' %>7</label>
-    <label class="radio-inline"><%= radio_button_tag :puissance, 11, params[:puissance] == '11' %>11</label>
-    <label class="radio-inline"><%= radio_button_tag :puissance, 22, params[:puissance] == '22' %>22</label>
-    <label class="radio-inline"><%= radio_button_tag :puissance, 43, params[:puissance] == '43' %>43</label>
-    <label class="radio-inline"><%= radio_button_tag :puissance, 50, params[:puissance] == '50' %>50</label>
-    
-    <%= submit_tag "Rechercher", :name => nil, class:"btn-sm btn-success" %>
-  </div>
+    <label>Nom Station/Adresse/Enseigne:</label>
+    <%= text_field_tag :search, params[:search], size: 20, class: "form-control mr-sm-4" %>
+
+    <label>Puissance mini (kWh):</label>
+    <label class="radio">
+      <%= radio_button_tag :puissance,  3, (params[:puissance] ==  '3'), class: "form-control" %>
+      3
+    </label> 
+    <label class="radio">
+      <%= radio_button_tag :puissance,  7, (params[:puissance] ==  '7'), class: "form-control" %>
+      7
+    </label>
+    <label class="radio">
+      <%= radio_button_tag :puissance, 11, (params[:puissance] == '11'), class: "form-control" %>
+      11
+    </label>
+    <label class="radio">
+      <%= radio_button_tag :puissance, 22, (params[:puissance] == '22'), class: "form-control" %>
+      22
+    </label>
+    <label class="radio">
+      <%= radio_button_tag :puissance, 43, (params[:puissance] == '43'), class: "form-control" %>
+      43
+    </label>
+    <label class="radio">
+      <%= radio_button_tag :puissance, 50, (params[:puissance] == '50'), class: "form-control" %>
+      50
+    </label>
+
+    <label class="form-check-label ml-sm-5">
+      <%= check_box_tag :nearby, 1, (params[:nearby] == '1'), class: "form-control mr-sm-2" %>
+      à proximité ?
+    </label>
+
+    <%= submit_tag "Rechercher", :name => nil, class: "btn-sm btn-success ml-sm-5" %>
 <% end %>
+<br>
 
 <table class="table table-hover">
   <thead>
@@ -34,6 +57,9 @@
       <th>Type prise</th>
     </tr>
   </thead>
+  <tfoot>
+    <th /><th /><th /><th /><th /><th /><th /><th /><th />
+  </tfoot>
 
   <tbody>
     <% @bornes.each do |borne| %>
@@ -56,7 +82,7 @@
   </tbody>
 </table>
 
+<%= will_paginate @bornes, renderer: BootstrapPagination::Rails %>
 <div class="page_info">
   <%= page_entries_info @posts %>
 </div>
-<%= will_paginate @bornes, renderer: BootstrapPagination::Rails %>
