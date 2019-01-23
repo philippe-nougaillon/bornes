@@ -1,82 +1,89 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= link_to "Bornes de Recharge pour Véhicules Électriques" %></h1>
-<br>
+<br /><br />
 
-<%= form_tag bornes_path, :method => :get, class: "form-inline" do %>
+<%= form_tag bornes_path, :method => :get do %>
+  <div class="row">
 
-    <label>Nom Station/Adresse/Enseigne:</label>
-    <%= text_field_tag :search, params[:search], size: 20, class: "form-control mr-sm-4" %>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Nom Station/Adresse/Enseigne</label>
+        <%= text_field_tag :search, params[:search], class: "form-control mr-sm-4" %>
+      </div>
+    </div>
 
-    <label>Puissance mini (kWh):</label>
-    <label class="radio">
-      <%= radio_button_tag :puissance,  3, (params[:puissance] ==  '3'), class: "form-control" %>
-      3
-    </label> 
-    <label class="radio">
-      <%= radio_button_tag :puissance,  7, (params[:puissance] ==  '7'), class: "form-control" %>
-      7
-    </label>
-    <label class="radio">
-      <%= radio_button_tag :puissance, 11, (params[:puissance] == '11'), class: "form-control" %>
-      11
-    </label>
-    <label class="radio">
-      <%= radio_button_tag :puissance, 22, (params[:puissance] == '22'), class: "form-control" %>
-      22
-    </label>
-    <label class="radio">
-      <%= radio_button_tag :puissance, 43, (params[:puissance] == '43'), class: "form-control" %>
-      43
-    </label>
-    <label class="radio">
-      <%= radio_button_tag :puissance, 50, (params[:puissance] == '50'), class: "form-control" %>
-      50
-    </label>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label for="puissance">Puissance mini (kWh)</label>
+        <%= select_tag :puissance,
+                        options_for_select([3,7,11,22,43,50], params[:puissance]),
+                        class: "form-control mr-sm-2", 
+                        onchange:'this.form.submit()' %>
+      </div>
+    </div>
 
-    <label class="form-check-label ml-sm-5">
-      <%= check_box_tag :nearby, 1, (params[:nearby] == '1'), class: "form-control mr-sm-2" %>
-      à proximité ?
-    </label>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label class="form-check-label ml-sm-5">
+          à proximité?
+          <%= check_box_tag :nearby, 1, 
+                            (params[:nearby] == '1'), 
+                            class: "form-control mr-sm-2", 
+                            onchange:'this.form.submit()' %>
+        </label>
+      </div>
+    </div>
 
-    <%= submit_tag "Rechercher", :name => nil, class: "btn-sm btn-success ml-sm-5" %>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label class="form-check-label ml-sm-5">
+          que les stations?
+          <%= check_box_tag :stations, 1, 
+                            (params[:stations] == '1'), 
+                            class: "form-control mr-sm-2",
+                            onchange:'this.form.submit()' %>
+        </label>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <%= submit_tag "Rechercher", :name => nil, class: "btn-sm btn-success ml-sm-5" %>
+    </div>
+
+  </div>
 <% end %>
-<br>
 
-<table class="table table-hover">
+<br />
+
+<table class="table table-hover table-striped">
   <thead>
     <tr>
       <th>Nom station</th>
-      <th>Enseigne</th>
-      <th>Id station</th>
       <th>Adresse</th>
+      <th>Enseigne</th>
       <th>Distance</th>
-      <th>Code insee</th>
-      <th>Nbre pdc</th>
-      <th>Puiss max</th>
       <th>Type prise</th>
+      <th>Puiss max</th>
     </tr>
   </thead>
   <tfoot>
-    <th /><th /><th /><th /><th /><th /><th /><th /><th />
+    <th /><th /><th /><th /><th /><th />
   </tfoot>
 
   <tbody>
     <% @bornes.each do |borne| %>
       <tr>
         <td><%= link_to borne.n_station, borne %></td>
-        <td><%= borne.n_enseigne %></td>
-        <td><%= borne.id_station %></td>
         <td><%= borne.ad_station %></td>
+        <td><%= borne.n_enseigne %></td>
         <td>
             <% if dist = borne.try(:distance) %>
               <%= dist.round(0) %> km
             <% end %> 
         </td>
-        <td><%= borne.code_insee %></td>
-        <td><%= borne.nbre_pdc %></td>
-        <td><%= borne.puiss_max %></td>
         <td><%= borne.type_prise %></td>
+        <td><%= borne.puiss_max %></td>
       </tr>
     <% end %>
   </tbody>

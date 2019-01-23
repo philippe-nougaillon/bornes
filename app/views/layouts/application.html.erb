@@ -35,10 +35,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
 
-  <body>
-    <div class="container-fluid">
-      <%= yield %>
-    </div>
-  </body>
+
+  <div class="container">
+    <body>
+        <%= yield %>
+    </body>
+
+    <footer>
+      <small class="pull-right">
+        <%= link_to "Source: www.data.gouv.fr",
+                    "https://www.data.gouv.fr/fr/datasets/fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques/#_" %>
+      </small>
+    </footer>
+  </div>
 
 </html>

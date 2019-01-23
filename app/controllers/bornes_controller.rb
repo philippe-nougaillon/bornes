@@ -12,8 +12,12 @@ class BornesController < ApplicationController
     end
 
     if params[:nearby].present?
-      location = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
-      @bornes = @bornes.near(location, 20)
+      if params[:search].present?
+        location = params[:search] + ', FR'
+      else
+        location = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
+      end
+      @bornes = Borne.near(location, 20)
     end
 
     if params[:kms].present? && params[:location].present?
@@ -29,7 +33,11 @@ class BornesController < ApplicationController
     if params[:puissance].present?
       @bornes = @bornes.where("cast(puiss_max as int) >= ?", params[:puissance].to_i)
     end
-    
+
+    if params[:stations].present?
+      @bornes = @bornes.group(:id_station)
+    end
+
     respond_to do |format|
       format.html { @bornes = @bornes.page(params[:page]) }
       format.json
@@ -39,7 +47,7 @@ class BornesController < ApplicationController
   # GET /bornes/1
   # GET /bornes/1.json
   def show
-    @bornes = @borne.nearbys(20)
+    @bornes = @borne.nearbys(20).where.not(id_station: @borne.id_station).group(:id_station)
   end
 
   # GET /bornes/new

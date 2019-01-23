@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h2><%= link_to @borne.n_station %></h2>
+<%= link_to "< Retour à la liste", root_url %>
 
 <div class="row">
   <div id='map' style='width: 100%; height: 400px;'></div>
@@ -9,74 +10,80 @@
 <div class="row">
   <div class="col-sm-4">
     <p>
-      <strong>Adresse station:</strong>
-      <%= @borne.ad_station %>
+      Adresse station<br />
+      <strong><%= @borne.ad_station %></strong>
     </p>
 
     <p>
-      <strong>Amenageur:</strong>
+      Type<br />
+      <strong><%= @borne.type_prise %></strong>
+    </p>
+
+    <p>
+      Puissance<br />
+      <strong><%= @borne.puiss_max %> kWh</strong>
+    </p>
+
+    <p>
+      Nbre point de charge<br />
+      <strong><%= @borne.nbre_pdc %></strong>
+    </p>
+    <p>
+      Accès recharge<br />
+      <strong><%= @borne.acces_recharge %></strong>
+    </p>
+
+    <p>
+      Accessibilité:
+      <%= @borne.accessibilité %>
+    </p>
+  </div>
+
+  <div class="col-sm-3">
+    <p>
+      Amenageur:
       <%= @borne.n_amenageur %>
     </p>
 
     <p>
-      <strong>Opérateur:</strong>
+      Opérateur:
       <%= @borne.n_operateur %>
     </p>
 
     <p>
-      <strong>Enseigne:</strong>
+      Enseigne:
       <%= @borne.n_enseigne %>
     </p>
 
     <p>
-      <strong>Id station:</strong>
+      Id station:
       <%= @borne.id_station %>
     </p>
 
     <p>
-      <strong>Code insee:</strong>
+      Code insee:
       <%= @borne.code_insee %>
     </p>
 
     <p>
-      <strong>Date maj:</strong>
+      Date maj:
       <%= @borne.date_maj %>
     </p>
-  </div>
-  <div class="col-sm-4">
-    <p>
-      <strong>Type:</strong>
-      <%= @borne.type_prise %>
-    </p>
-    <p>
-      <strong>Puissance</strong>
-      <%= @borne.puiss_max %> kWh
-    </p>
-    <p>
-      <strong>Nbre pdc:</strong>
-      <%= @borne.nbre_pdc %>
-    </p>
-    <p>
-      <strong>Accès recharge:</strong>
-      <%= @borne.acces_recharge %>
-    </p>
 
     <p>
-      <strong>Accessibilité:</strong>
-      <%= @borne.accessibilité %>
-    </p>
-
-    <p>
-      <strong>Observations:</strong>
+      Observations:
       <%= @borne.observations %>
     </p>
-
   </div>
-  <div class="col-sm-4">
-    <h3>Bornes dans les environs (20 kms)</h3>
+
+  <div class="col-sm-5">
+    <h4>Bornes dans les environs (20 kms)</h4>
     <ul>
     <% for borne in @bornes %>
-      <li><%= link_to borne.ad_station, borne %> (<%= borne.distance.round(2) %> kms)</li>
+      <li><%= link_to borne.ad_station, borne %>
+          <%= borne.puiss_max %> kWh    
+         (<%= borne.distance.round(2) %> kms)
+     </li>
     <% end %>
     </ul>
   </div>
