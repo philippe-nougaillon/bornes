@@ -20,24 +20,6 @@ class BornesController < ApplicationController
       @bornes = Borne.near(location, 20)
     end
 
-    if params[:kms].present? && params[:location].present?
-      # rechercher les bornes à proximité de la ville(location) ou par geocodage de l'IP      
-      unless params[:location].nil?
-        location = params[:location] + ", FR"
-      else
-        location = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
-      end
-      @bornes = @bornes.near(location, params[:kms].to_i)
-    end
-
-    if params[:puissance].present?
-      @bornes = @bornes.where("cast(puiss_max as int) >= ?", params[:puissance].to_i)
-    end
-
-    if params[:stations].present?
-      @bornes = @bornes.group(:id_station)
-    end
-
     respond_to do |format|
       format.html { @bornes = @bornes.page(params[:page]) }
       format.json
