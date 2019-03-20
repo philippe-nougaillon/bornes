@@ -7,17 +7,21 @@ class BornesController < ApplicationController
     @bornes = Borne.all
 
     if params[:search].present?
-      @bornes = @bornes.where("n_station like ? OR ad_station like ? OR n_enseigne like ?", 
-                            "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      @bornes = @bornes.where("n_station like ? OR ad_station like ? OR n_enseigne like ? OR n_amenageur like ? OR n_operateur like ?", 
+                            "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
 
     if params[:nearby].present?
       if params[:search].present?
-        location = params[:search] + ', FR'
+        location = params[:search].upcase + ', FR'
       else
         location = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
       end
       @bornes = Borne.near(location, 20)
+    end
+
+    if params[:stations].present?
+      @bornes = @bornes.group(:id_station)
     end
 
     respond_to do |format|

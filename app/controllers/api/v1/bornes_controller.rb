@@ -10,21 +10,18 @@ module Api
 		    skip_before_action :verify_authenticity_token
 		    
 			def index
-				@bornes = Borne.all
-			    
-			    if params[:location].present? && params[:kms].present?
-			      location = params[:location] + ", FR"
-			      kms = params[:kms].to_i
-			      @bornes = @bornes.near(location, kms)
-			    end
+				begin
+				    if params[:location].present? && params[:kms].present?
+				      location = params[:location] + ", FR"
+				      @bornes = Borne.near(location, params[:kms].to_i).group(:id_station)
+				    end
+				 rescue
+				 	@bornes = []
+				 end
 
-			    if params[:puissance].present?
-			      @bornes = @bornes.where("cast(puiss_max as int) >= ?", params[:puissance].to_i)
-			    end
-
-			    if params[:stations].present?
-			      @bornes = @bornes.group(:id_station)
-			    end
+			    # if params[:puissance].present?
+			    #   @bornes = @bornes.where("cast(puiss_max as int) >= ?", params[:puissance].to_i)
+			    # end
 			end	
 		end
 	end
