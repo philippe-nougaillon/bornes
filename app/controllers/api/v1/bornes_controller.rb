@@ -14,10 +14,10 @@ module Api
 					if params[:location].present? && params[:kms].present?
 						# Chercher d'abord dans les alentours
 					  	location = params[:location].upcase
-						@bornes = Borne.near(location, params[:kms].to_i).group(:id_station)
+						@bornes = Borne.near(location, params[:kms].to_i).group(:id_station).limit(10)
 						# Si pas de résultats, on cherche par l'adresse	
 						unless @bornes.any?	
-							@bornes = Borne.where("ad_station like ?", "%#{location}%")
+							@bornes = Borne.where("ad_station like ?", "%#{location}%").limit(10)
 						end
 				    end
 				 rescue

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_06_115107) do
+ActiveRecord::Schema.define(version: 2019_08_06_130939) do
 
   create_table "bornes", force: :cascade do |t|
     t.string "n_amenageur"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_11_06_115107) do
     t.string "source"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["ad_station"], name: "index_bornes_on_ad_station"
   end
 
 end
