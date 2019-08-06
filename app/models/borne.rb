@@ -32,7 +32,7 @@ class ImportBorneCSV
   column :accessibilité	
   column :observations
   column :date_maj	
-  column :source
+  #column :source
 
   #identifier :id_station
 

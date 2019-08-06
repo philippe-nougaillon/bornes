@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_06_130939) do
+ActiveRecord::Schema.define(version: 2019_08_06_151837) do
 
-  create_table "bornes", force: :cascade do |t|
+  create_table "bornes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "n_amenageur"
     t.string "n_operateur"
     t.string "n_enseigne"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_130939) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ad_station"], name: "index_bornes_on_ad_station"
+    t.index ["id_station"], name: "index_bornes_on_id_station"
   end
 
 end
