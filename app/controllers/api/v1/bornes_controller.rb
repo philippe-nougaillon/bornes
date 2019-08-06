@@ -11,17 +11,18 @@ module Api
 		    
 			def index
 				begin
-				    if params[:location].present? && params[:kms].present?
-				      location = params[:location] + ", FR"
-				      @bornes = Borne.near(location, params[:kms].to_i).group(:id_station)
+					if params[:location].present? && params[:kms].present?
+						# Chercher d'abord par l'adresse
+					  	location = params[:location].upcase
+					  	@bornes = Borne.where("ad_station like ?", "%#{location}%")
+						# Si pas de résultats, on cherche dans les alentours	
+						unless @bornes.any?	
+						  @bornes = Borne.near(location, params[:kms].to_i).group(:id_station)
+						end
 				    end
 				 rescue
 				 	@bornes = []
 				 end
-
-			    # if params[:puissance].present?
-			    #   @bornes = @bornes.where("cast(puiss_max as int) >= ?", params[:puissance].to_i)
-			    # end
 			end	
 		end
 	end
