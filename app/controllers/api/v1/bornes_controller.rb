@@ -10,14 +10,10 @@ module Api
 		    skip_before_action :verify_authenticity_token
 		    
 			def index
-				unless params[:location].blank? && params[:kms].blank?
+				unless params[:location].blank?
 					# Chercher d'abord dans les alentours
 					location = params[:location].upcase
-					@bornes = Borne.near(location, params[:kms].to_i)
-					# Si pas de résultats, on cherche par l'adresse	
-					unless @bornes.any?	
-						@bornes = Borne.where("ad_station like ?", "%#{location}%")
-					end
+					@bornes = Borne.near(location, 20)
 					@bornes = @bornes.limit(10)
 				else
 					@bornes = []
