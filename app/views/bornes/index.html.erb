@@ -8,8 +8,8 @@
 
     <div class="col-sm-4">
       <div class="form-group">
-        <label>Nom Station/Adresse/Enseigne</label>
-        <%= text_field_tag :search, params[:search], class: "form-control mr-sm-4" %>
+        <label>Nom de la station/Adresse/Enseigne/Aménageur</label>
+        <%= text_field_tag :search, params[:search], class: "form-control mr-sm-4",  onchange:'this.form.submit()' %>
       </div>
     </div>
 
@@ -23,10 +23,10 @@
       </div>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
-        <label class="form-check-label ml-sm-5">
-          à proximité?
+        <label class="form-check-label">
+          Dans un rayon de 20 km ?
           <%= check_box_tag :nearby, 1, 
                             (params[:nearby] == '1'), 
                             class: "form-control mr-sm-2", 
@@ -34,23 +34,6 @@
         </label>
       </div>
     </div>
-
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label class="form-check-label ml-sm-5">
-          que les stations?
-          <%= check_box_tag :stations, 1, 
-                            (params[:stations] == '1'), 
-                            class: "form-control mr-sm-2",
-                            onchange:'this.form.submit()' %>
-        </label>
-      </div>
-    </div>
-
-    <div class="col-sm-2">
-      <%= submit_tag "Rechercher", :name => nil, class: "btn-sm btn-success ml-sm-5" %>
-    </div>
-
   </div>
 <% end %>
 

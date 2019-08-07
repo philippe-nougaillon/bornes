@@ -20,9 +20,9 @@ class BornesController < ApplicationController
       @bornes = Borne.near(location, 20)
     end
 
-    if params[:stations].present?
-      @bornes = @bornes.group(:id_station)
-    end
+    # if params[:stations].present?
+    #   @bornes = @bornes.group(:id_station)
+    # end
 
     respond_to do |format|
       format.html { @bornes = @bornes.page(params[:page]) }
