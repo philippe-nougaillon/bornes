@@ -19,7 +19,8 @@ module Bornes
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
+        # origins 'relax-en-zoe.herokuapp.com', 'localhost:3030'
+        resource '*', headers: :any, methods: [:get]
       end
     end
     
