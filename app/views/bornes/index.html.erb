@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= link_to "Bornes de Recharge pour Véhicules Électriques" %></h1>
+<h1>
+  <%= link_to "Bornes de Recharge pour Véhicules Électriques" %><br />
+  <small>Back-office de l'application pour mobile <%= link_to "'Relax en ZOE'", "https://relax-en-zoe.herokuapp.com/#/" %></small>
+</h1>
 <br /><br />
 
 <%= form_tag bornes_path, :method => :get do %>
