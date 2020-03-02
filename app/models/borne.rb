@@ -4,12 +4,6 @@ class Borne < ApplicationRecord
   self.per_page = 10
 end
 
-# Source : https://www.data.gouv.fr/fr/datasets/fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques/
-# rails console
-# > import = Borne::ImportBorneCSV.new(path: '/home/philnoug/Téléchargements/bornes-irve.csv')
-# > import.run!
-# > import.report.status
-
 class ImportBorneCSV
   include CSVImporter
 
@@ -32,8 +26,15 @@ class ImportBorneCSV
   column :accessibilité	
   column :observations
   column :date_maj	
-  #column :source
 
-  #identifier :id_station
+  # Source bornes : https://www.data.gouv.fr/fr/datasets/fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques/
+
+  # Pour lancer l'import: 
+
+  # $ rails console
+  # > Borne.last
+  # > import = ImportBorneCSV.new(path: '/home/philnoug/Téléchargements/bornes-irve.csv')
+  # > import.run!
+  # > import.report.status
 
 end
