@@ -6,23 +6,19 @@ class BornesController < ApplicationController
   def index
     @bornes = Borne.all
 
-    if params[:search].present?
-      @bornes = @bornes.where("n_station like ? OR ad_station like ? OR n_enseigne like ? OR n_amenageur like ? OR n_operateur like ?", 
-                            "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+    unless params[:search].blank?
+      s = "'%#{params[:search].upcase}%'"
+      @bornes = @bornes.where(Arel.sql("UPPER(bornes.n_station) LIKE #{s} OR UPPER(bornes.ad_station) LIKE#{s} OR UPPER(bornes.n_amenageur) LIKE #{s}"))
     end
 
     if params[:nearby].present?
-      if params[:search].present?
-        location = params[:search].upcase + ', FR'
-      else
-        location = (request.ip != '127.0.0.1' ? request.ip : '195.68.72.6') # si en mode 'dev' forcer l'IP de la box
-      end
+      location = params[:search].upcase + ', FR'
       @bornes = Borne.near(location, 20)
     end
 
-    # if params[:stations].present?
-    #   @bornes = @bornes.group(:id_station)
-    # end
+    unless params[:puissance].blank?
+      @bornes = @bornes.where(Arel.sql("TO_NUMBER(bornes.puiss_max, '9999') >= #{params[:puissance].to_i}"))
+    end
 
     respond_to do |format|
       format.html { @bornes = @bornes.page(params[:page]) }
