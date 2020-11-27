@@ -90,13 +90,13 @@
 
 <script>
   mapboxgl.accessToken = 'pk.eyJ1IjoicGhpbG5vdWciLCJhIjoiY2pvNXRyczhjMDFkajNxcGVmNHZtcHZ4OSJ9.vcFMjboSUDUUg--tDsgapg';
+  
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: <%= [@borne.longitude, @borne.latitude] %>,
     zoom: 10
   });
-
 
   <% @bornes.each do | marker | %>
 
@@ -115,7 +115,7 @@
 
   // create a HTML element for the main plug
   var el = document.createElement('div');
-  el.className = 'marker_spot';
+  el.className = "marker_spot red";
 
   new mapboxgl.Marker(el)
   .setLngLat(<%= [@borne.longitude, @borne.latitude] %>)
