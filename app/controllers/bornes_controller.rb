@@ -29,7 +29,9 @@ class BornesController < ApplicationController
   # GET /bornes/1
   # GET /bornes/1.json
   def show
-    @bornes = @borne.nearbys(20).where.not(id_station: @borne.id_station).limit(20)
+    if @bornes = @borne.nearbys(20)
+      @bornes = @bornes.where.not(id_station: @borne.id_station).limit(20)
+    end
   end
 
   # GET /bornes/new

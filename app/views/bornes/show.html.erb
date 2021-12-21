@@ -76,15 +76,17 @@
   </div>
 
   <div class="col-sm-5">
-    <h4>Bornes dans les environs (20 kms)</h4>
-    <ul>
-    <% for borne in @bornes %>
-      <li><%= link_to borne.ad_station, borne %>
-          <%= borne.puiss_max %> kWh    
-         (<%= borne.distance.round(2) %> kms)
-     </li>
+    <% if @bornes %>
+      <h4>Bornes dans les environs (20 kms)</h4>
+      <ul>
+      <% for borne in @bornes %>
+        <li><%= link_to borne.ad_station, borne %>
+            <%= borne.puiss_max %> kWh    
+          (<%= borne.distance.round(2) %> kms)
+        </li>
+      <% end %>
+      </ul>
     <% end %>
-    </ul>
   </div>
 </div>
 
@@ -98,19 +100,21 @@
     zoom: 10
   });
 
-  <% @bornes.each do | marker | %>
+  <%- if @bornes -%>
+    <%- @bornes.each do | marker | -%>
 
-    // create a HTML element for each plug nearby
-    var el = document.createElement('div');
-    el.className = 'marker';
+      // create a HTML element for each plug nearby
+      var el = document.createElement('div');
+      el.className = 'marker';
 
-    // make a marker for each feature and add to the map
-    new mapboxgl.Marker(el)
-    .setLngLat(<%= [marker.longitude, marker.latitude] %>)
-    .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-    .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%=marker.id %>'>Détails</a></p>"))
-    .addTo(map);
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(el)
+      .setLngLat(<%= [marker.longitude, marker.latitude] %>)
+      .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+      .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%= marker.id %>'>Détails</a></p>"))
+      .addTo(map);
 
+    <% end %>
   <% end %>
 
   // create a HTML element for the main plug
