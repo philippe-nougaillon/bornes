@@ -68,6 +68,7 @@ end
 
 # import CSV (Importing a CSV file is easy to code until real users attempt to import real data.)
 gem 'csv-importer'
+
 gem 'geocoder'
 gem 'will_paginate-bootstrap'
 gem 'rack-cors', require: 'rack/cors'

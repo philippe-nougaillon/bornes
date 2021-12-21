@@ -2,40 +2,100 @@ class Borne < ApplicationRecord
 	reverse_geocoded_by :latitude, :longitude
 
   self.per_page = 10
+
 end
+
+# Source bornes : https://www.data.gouv.fr/fr/datasets/fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques/
+# Pour lancer l'import: 
+# Copier le ficher en racine, sous le nom de bornes-irve.csv
+# $ rails console
+# > Borne.last
+# > import = ImportBorneCSV.new(path: 'bornes-irve.csv')
+# > import.run!
+# > import.report.status
+
+# sur heroku/ pour supprimer les données existantes 
+# ActiveRecord::Base.connection.execute("DELETE FROM bornes;")
 
 class ImportBorneCSV
   include CSVImporter
 
   model Borne
 
-  column :n_amenageur
-  column :n_operateur
-  column :n_enseigne	
-  column :id_station
-  column :n_station	
-  column :ad_station
-  column :code_insee
-  column :longitude, as: 'Xlongitude' 
-  column :latitude, as: 'Ylatitude'	
+  # Header fichier CSV au 2021-12
+  ## nom_amenageur,
+  ## nom_operateur,
+  ## nom_enseigne,
+  ## id_station_itinerance,
+  ## nom_station,
+  ## adresse_station,
+  ## code_insee_commune,
+  ## coordonneesXY,
+  ## puissance_nominale,
+  ## accessibilite_pmr,
+  # siren_amenageur,
+  # contact_amenageur,
+  # contact_operateur,
+  # telephone_operateur,
+  # id_station_local,
+  # implantation_station,
+  # nbre_pdc,
+  # id_pdc_itinerance,
+  # id_pdc_local,
+  # prise_type_ef,
+  # prise_type_2,
+  # prise_type_combo_ccs,
+  # prise_type_chademo,
+  # prise_type_autre,
+  # gratuit,
+  # paiement_acte,
+  # paiement_cb,
+  # paiement_autre,
+  # tarification,
+  # condition_acces,
+  # reservation,
+  # horaires,
+  # restriction_gabarit,
+  # station_deux_roues,
+  # raccordement,
+  # num_pdl,
+  # date_mise_en_service,
+  # observations,
+  # date_maj,
+  # last_modified,
+  # datagouv_dataset_id,
+  # datagouv_resource_id,
+  # datagouv_organization_or_owner
+
+  column :n_amenageur, as: 'nom_amenageur'
+  column :n_operateur, as: 'nom_operateur'
+  column :n_enseigne, as: 'nom_enseigne'	
+  column :id_station, as: 'id_station_itinerance'
+  column :n_station, as: 'nom_station'
+  column :ad_station, as: 'adresse_station'
+  column :code_insee, as: 'code_insee_commune'
   column :nbre_pdc
-  column :d_pdc	
-  column :puiss_max
-  column :type_prise
-  column :acces_recharge	
-  column :accessibilité	
+  column :puiss_max, as: 'puissance_nominale'
+  column :accessibilité, as: 'accessibilite_pmr'	
   column :observations
   column :date_maj	
+  column :extra, as: 'coordonneesXY', to: ->(value, borne, column) do
+    s = value.gsub('[', '').gsub(']','').split(',') 
+    borne[:longitude] = s.first
+    borne[:latitude] = s.last
+  end 
+  column :type_prise, as: 'prise_type_2', to: ->(value, borne, column) do
+    #borne[:type_prise] = ''
+    #borne[:type_prise] += 'EF ' if column == 'prise_type_ef' && value == '1'
+    borne[:type_prise] = 'TYPE2' if value == 'true'
+    #borne[:type_prise] += 'CSS ' if column == 'prise_type_combo_ccs' && value == '1'
+    #borne[:type_prise] += 'CHADEMO ' if column == 'prise_type_chademo' && value == '1'
+    #borne[:type_prise] += 'Autre' if column == 'prise_type_autre' && value == '1'
+  end
+  # column :d_pdc	
+  # column :acces_recharge	
 
-  # Source bornes : https://www.data.gouv.fr/fr/datasets/fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques/
-
-  # Pour lancer l'import: 
-
-  # Copier le ficher en racine, sous le nom de bornes-irve.csv
-  # $ rails console
-  # > Borne.last
-  # > import = ImportBorneCSV.new(path: 'bornes-irve.csv')
-  # > import.run!
-  # > import.report.status
+  identifier :id_station
+  when_invalid :skip
 
 end
