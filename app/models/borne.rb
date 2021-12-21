@@ -31,9 +31,10 @@ class ImportBorneCSV
 
   # Pour lancer l'import: 
 
+  # Copier le ficher en racine, sous le nom de bornes-irve.csv
   # $ rails console
   # > Borne.last
-  # > import = ImportBorneCSV.new(path: '/home/philnoug/Téléchargements/bornes-irve.csv')
+  # > import = ImportBorneCSV.new(path: 'bornes-irve.csv')
   # > import.run!
   # > import.report.status
 
