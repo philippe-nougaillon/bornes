@@ -81,8 +81,8 @@ class ImportBorneCSV
   column :date_maj	
   column :extra, as: 'coordonneesXY', to: ->(value, borne, column) do
     s = value.gsub('[', '').gsub(']','').split(',') 
-    borne[:longitude] = s.first
-    borne[:latitude] = s.last
+    borne[:latitude] = s.first
+    borne[:longitude] = s.last
   end 
   column :type_prise, as: 'prise_type_2', to: ->(value, borne, column) do
     #borne[:type_prise] = ''
