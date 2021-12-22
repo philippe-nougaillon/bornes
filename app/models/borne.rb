@@ -84,14 +84,15 @@ class ImportBorneCSV
     borne[:latitude] = s.first
     borne[:longitude] = s.last
   end 
+
   column :type_prise, as: 'prise_type_2', to: ->(value, borne, column) do
-    #borne[:type_prise] = ''
-    #borne[:type_prise] += 'EF ' if column == 'prise_type_ef' && value == '1'
-    borne[:type_prise] = 'TYPE2' if value == 'true'
-    #borne[:type_prise] += 'CSS ' if column == 'prise_type_combo_ccs' && value == '1'
-    #borne[:type_prise] += 'CHADEMO ' if column == 'prise_type_chademo' && value == '1'
-    #borne[:type_prise] += 'Autre' if column == 'prise_type_autre' && value == '1'
+    borne[:type_prise_t2] = value
   end
+
+  column :type_prise, as: 'prise_type_combo_ccs', to: ->(value, borne, column) do
+    borne[:type_prise_ccs] = value 
+  end
+
   # column :d_pdc	
   # column :acces_recharge	
 

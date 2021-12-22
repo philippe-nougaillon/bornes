@@ -14,8 +14,9 @@
     </p>
 
     <p>
-      Type<br />
-      <strong><%= @borne.type_prise %></strong>
+      Type Prise<br />
+      <strong><%= 'T2' if @borne.type_prise_t2 %></strong>
+      <strong><%= 'CCS' if @borne.type_prise_ccs %></strong>
     </p>
 
     <p>
@@ -79,12 +80,12 @@
     <% if @bornes %>
       <h4>Bornes dans les environs (20 kms)</h4>
       <ul>
-      <% for borne in @bornes %>
-        <li><%= link_to borne.ad_station, borne %>
-            <%= borne.puiss_max %> kWh    
-          (<%= borne.distance.round(2) %> kms)
-        </li>
-      <% end %>
+        <% for borne in @bornes %>
+          <li><%= link_to borne.ad_station, borne %>
+              <%= borne.puiss_max %> kWh    
+            (<%= borne.distance.round(2) %> kms)
+          </li>
+        <% end %>
       </ul>
     <% end %>
   </div>

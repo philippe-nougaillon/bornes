@@ -10,9 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_11_125830) do
+ActiveRecord::Schema.define(version: 2021_12_22_100727) do
 
-  create_table "bornes",force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "bornes", force: :cascade do |t|
     t.string "n_amenageur"
     t.string "n_operateur"
     t.string "n_enseigne"
@@ -33,6 +36,10 @@ ActiveRecord::Schema.define(version: 2019_08_11_125830) do
     t.string "source"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "type_prise_t2", default: false, null: false
+    t.boolean "type_prise_ccs", default: false, null: false
+    t.boolean "type_prise_chademo", default: false, null: false
+    t.boolean "type_prise_autre", default: false, null: false
     t.index ["ad_station"], name: "index_bornes_on_ad_station"
     t.index ["id_station"], name: "index_bornes_on_id_station"
     t.index ["latitude", "longitude"], name: "index_bornes_on_latitude_and_longitude"

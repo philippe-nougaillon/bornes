@@ -30,7 +30,7 @@ class BornesController < ApplicationController
   # GET /bornes/1.json
   def show
     if @bornes = @borne.nearbys(20)
-      @bornes = @bornes.where.not(id_station: @borne.id_station).limit(20)
+      @bornes = @bornes.where.not(id_station: @borne.id_station).limit(5)
     end
   end
 
