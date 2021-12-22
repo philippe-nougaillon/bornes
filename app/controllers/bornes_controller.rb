@@ -5,6 +5,7 @@ class BornesController < ApplicationController
   # GET /bornes.json
   def index
     @bornes = Borne.all
+    params[:nearby] ||= '1'
 
     unless params[:search].blank?
       s = "'%#{params[:search].upcase}%'"
@@ -12,12 +13,14 @@ class BornesController < ApplicationController
     end
 
     if params[:nearby].present?
-      location = params[:search].upcase + ', FR'
-      @bornes = Borne.near(location, 20)
+      unless params[:search].blank?
+        location = params[:search].upcase + ', FR'
+        @bornes = Borne.near(location, 20)
+      end
     end
 
     unless params[:puissance].blank?
-      @bornes = @bornes.where(Arel.sql("TO_NUMBER(bornes.puiss_max, '9999') >= #{params[:puissance].to_i}"))
+      @bornes = @bornes.where(Arel.sql("TO_NUMBER(bornes.puiss_max, '999999') >= #{params[:puissance].to_i}"))
     end
 
     respond_to do |format|

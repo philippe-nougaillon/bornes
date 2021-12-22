@@ -54,7 +54,7 @@
     </tr>
   </thead>
   <tfoot>
-    <th /><th /><th /><th /><th /><th />
+    <th></th><th></th><th></th><th></th><th></th><th></th>
   </tfoot>
 
   <tbody>
@@ -68,7 +68,10 @@
               <%= dist.round(0) %> km
             <% end %> 
         </td>
-        <td><%= borne.type_prise %></td>
+        <td>
+          <strong><%= 'T2' if borne.type_prise_t2 %></strong>
+          <strong><%= 'CCS' if borne.type_prise_ccs %></strong>
+        </td>
         <td><%= borne.puiss_max %></td>
       </tr>
     <% end %>
