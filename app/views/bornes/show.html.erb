@@ -127,31 +127,20 @@
     zoom: 10
   });
 
-  <%- if @bornes -%>
-    <%- @bornes.each do | marker | -%>
-
-      // create a HTML element for each plug nearby
-      var el = document.createElement('div');
-      el.className = 'marker';
-
-      // make a marker for each feature and add to the map
-      new mapboxgl.Marker(el)
-      .setLngLat(<%= [marker.longitude, marker.latitude] %>)
-      .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-      .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%= marker.id %>'>Détails</a></p>"))
-      .addTo(map);
-
-    <% end %>
-  <% end %>
-
-  // create a HTML element for the main plug
-  var el = document.createElement('div');
-  el.className = "marker_spot red";
-
-  new mapboxgl.Marker(el)
+  new mapboxgl.Marker({ "color": "#b40219" })
   .setLngLat(<%= [@borne.longitude, @borne.latitude] %>)
-  .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+  .setPopup(new mapboxgl.Popup({ offset: 25 })
   .setHTML("<h3><%= @borne.n_station %></h3><p>Type: <%= @borne.type_prise %><br>Puissance: <%= @borne.puiss_max %> kW/h</p>"))
   .addTo(map);
+
+  <%- if @bornes -%>
+    <%- @bornes.each do | marker | -%>
+      new mapboxgl.Marker({ "color": "#40219b" })
+      .setLngLat(<%= [marker.longitude, marker.latitude] %>)
+      .setPopup(new mapboxgl.Popup({ offset: 25 })
+      .setHTML("<h3><%= marker.n_station %></h3><p>Type: <%= marker.type_prise %><br>Puissance: <%= marker.puiss_max %> kW/h</p><p><a href='<%= marker.id %>'>Détails</a></p>"))
+      .addTo(map);
+    <% end %>
+  <% end %>
 
 </script>
