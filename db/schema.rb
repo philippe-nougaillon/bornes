@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_22_100727) do
+ActiveRecord::Schema.define(version: 2021_12_23_095138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,11 @@ ActiveRecord::Schema.define(version: 2021_12_22_100727) do
     t.boolean "type_prise_ccs", default: false, null: false
     t.boolean "type_prise_chademo", default: false, null: false
     t.boolean "type_prise_autre", default: false, null: false
+    t.boolean "gratuit", default: false, null: false
+    t.boolean "paiement_cb", default: false, null: false
+    t.boolean "paiement_acte", default: false, null: false
+    t.boolean "paiement_autre", default: false, null: false
+    t.string "tarification"
     t.index ["ad_station"], name: "index_bornes_on_ad_station"
     t.index ["id_station"], name: "index_bornes_on_id_station"
     t.index ["latitude", "longitude"], name: "index_bornes_on_latitude_and_longitude"

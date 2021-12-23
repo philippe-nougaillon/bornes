@@ -33,6 +33,18 @@ class ImportBorneCSV
   ## coordonneesXY,
   ## puissance_nominale,
   ## accessibilite_pmr,
+  ## prise_type_ef,
+  ## prise_type_2,
+  ## prise_type_combo_ccs,
+  ## prise_type_chademo,
+  ## prise_type_autre,
+
+  ## gratuit,
+  ## paiement_acte,
+  ## paiement_cb,
+  ## paiement_autre,
+  ## tarification,
+
   # siren_amenageur,
   # contact_amenageur,
   # contact_operateur,
@@ -42,16 +54,10 @@ class ImportBorneCSV
   # nbre_pdc,
   # id_pdc_itinerance,
   # id_pdc_local,
-  # prise_type_ef,
-  # prise_type_2,
-  # prise_type_combo_ccs,
-  # prise_type_chademo,
-  # prise_type_autre,
-  # gratuit,
-  # paiement_acte,
-  # paiement_cb,
-  # paiement_autre,
-  # tarification,
+
+  # column :d_pdc	
+  # column :acces_recharge	
+
   # condition_acces,
   # reservation,
   # horaires,
@@ -93,8 +99,11 @@ class ImportBorneCSV
     borne[:type_prise_ccs] = value 
   end
 
-  # column :d_pdc	
-  # column :acces_recharge	
+  column :gratuit
+  column :paiement_acte
+  column :paiement_cb
+  column :paiement_autre
+  column :tarification
 
   identifier :id_station
   when_invalid :skip

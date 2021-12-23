@@ -7,7 +7,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <p>
       Adresse station<br />
       <strong><%= @borne.ad_station %></strong>
@@ -25,9 +25,35 @@
     </p>
 
     <p>
-      Nbre point de charge<br />
+      Nbre point de charge:
       <strong><%= @borne.nbre_pdc %></strong>
     </p>
+
+    <p>
+      Gratuit:
+      <%= t @borne.gratuit %>
+    </p>
+
+    <p>
+      Paiement à l'acte:
+      <%= t @borne.paiement_acte %>
+    </p>
+
+    <p>
+      Paiement CB:
+      <%= t @borne.paiement_cb %>
+    </p>
+
+    <p>
+      Paiement autre:
+      <%= t @borne.paiement_autre %>
+    </p>
+
+    <p>
+      Tarification:
+      <%= @borne.tarification %>
+    </p>
+
     <p>
       Accès recharge<br />
       <strong><%= @borne.acces_recharge %></strong>
@@ -67,7 +93,7 @@
 
     <p>
       Date maj:
-      <%= @borne.date_maj %>
+      <%= l @borne.date_maj.to_date %>
     </p>
 
     <p>
@@ -76,14 +102,14 @@
     </p>
   </div>
 
-  <div class="col-sm-5">
+  <div class="col-sm-6">
     <% if @bornes %>
-      <h4>Bornes dans les environs (20 kms)</h4>
+      <h4>Autres bornes dans un rayon de 20 km</h4>
       <ul>
         <% for borne in @bornes %>
           <li><%= link_to borne.ad_station, borne %>
-              <%= borne.puiss_max %> kWh    
-            (<%= borne.distance.round(2) %> kms)
+            <%= borne.puiss_max %> kWh    
+            à <%= borne.distance.round(2) %> km
           </li>
         <% end %>
       </ul>
